@@ -1,5 +1,6 @@
 package usermanagement.user;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -8,7 +9,14 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserResource {
 
-    UserService userService = new UserServiceImpl();
+    @Autowired
+    UserService userService;
+
+
+    @PostMapping("/signUp")
+    public User signUpUser(@RequestBody User user) throws Exception {
+        return userService.signUpUser(user);
+    }
 
     @GetMapping("/login")
     public User loginUser(@RequestParam String username, @RequestParam String password) throws Exception {
